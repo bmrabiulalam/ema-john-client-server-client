@@ -9,10 +9,10 @@
 /coverage
 
 # credentials
-/src/components/Login/firebase.config.js
+.config.js
 
 # production
-/build
+# /build
 
 # misc
 .DS_Store
