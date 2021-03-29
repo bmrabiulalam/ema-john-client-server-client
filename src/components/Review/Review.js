@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import fakeData from '../../fakeData';
 import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
@@ -15,13 +14,13 @@ const Review = () => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
 
-        const cartProducts = productKeys.map(key => {
-            const product = fakeData.find(pd => pd.key === key);
-            product.quantity = savedCart[key];
-            return product;
+        fetch('http://localhost:4000/productsByKeys', {
+            method: 'POST',
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify(productKeys)
         })
-
-        setCart(cartProducts);
+        .then(res => res.json())
+        .then(data => setCart(data));
     }, []);
 
     const removeProduct = (key) => {
