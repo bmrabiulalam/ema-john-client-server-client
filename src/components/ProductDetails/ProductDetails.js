@@ -6,7 +6,7 @@ const ProductDetails = () => {
     const [product, setProduct] = useState({})
     const {productKey} = useParams();
     useEffect(() => {
-        fetch('http://localhost:4000/product/'+productKey)
+        fetch('https://radiant-peak-25073.herokuapp.com/'+productKey)
         .then(res => res.json())
         .then(data => setProduct(data))
     }, [productKey]);

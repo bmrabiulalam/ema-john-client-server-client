@@ -11,7 +11,7 @@ const Shipment = () => {
         const savedCart = getDatabaseCart();
         const orderDetails = {...loggedInUser, products: savedCart, shipment: data, orderTime: new Date()};
 
-        fetch('http://localhost:4000/addOrder', {
+        fetch('https://radiant-peak-25073.herokuapp.com/addOrder', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(orderDetails)
