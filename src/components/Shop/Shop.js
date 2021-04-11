@@ -8,12 +8,13 @@ import './Shop.css';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
-        fetch('https://radiant-peak-25073.herokuapp.com/products')
+        fetch('http://localhost:4000/products?search='+search)
         .then(res => res.json())
         .then(data => setProducts(data));
-    }, [])
+    }, [search])
 
     useEffect(() => {
         const savedCart = getDatabaseCart();
@@ -48,9 +49,14 @@ const Shop = () => {
         addToDatabaseCart(product.key, count);
     }
 
+    const handleSearch = event => {
+        setSearch(event.target.value);
+    }
+
     return (
         <div className='shop-container'>
             <div className="product-container">
+                <input type="text" onBlur={handleSearch} placeholder="search product"/>
                 {
                     products.map(product => <Product key={product.key} 
                                                      showAddToCart={true} 

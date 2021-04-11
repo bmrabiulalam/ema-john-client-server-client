@@ -13,6 +13,15 @@ export const initializeLoginFramework = () => {
     }
 }
 
+const setUserToken = () => {
+    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+        // Send token to your backend via HTTPS
+        sessionStorage.setItem('token', idToken);
+      }).catch(function(error) {
+        // Handle error
+      });
+}
+
 export const handleGoogleSignIn = () => {
     const googleProvider = new firebase.auth.GoogleAuthProvider();
 
@@ -29,6 +38,8 @@ export const handleGoogleSignIn = () => {
                 success: true,
                 message: "Logged In!"
             }
+
+            setUserToken();
 
             return signedInUser;
         })
